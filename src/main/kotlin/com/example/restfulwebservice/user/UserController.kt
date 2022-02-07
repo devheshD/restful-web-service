@@ -16,7 +16,7 @@ class UserController(
 
     @GetMapping("/users/{id}")
     fun retrieveUser(@PathVariable id: Int): User? =
-        userDaoService.findOne(id) ?: throw UserNotFoundExceptIon("ID $id not found")
+        userDaoService.findOne(id) ?: throw UserNotFoundException("ID $id not found")
 
     @PostMapping("/users")
     fun createUser(@RequestBody user: User): ResponseEntity<User> {

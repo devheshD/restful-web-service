@@ -29,6 +29,21 @@ class UserDaoService {
         return null
     }
 
+    fun deleteById(id: Int): User? {
+        val iterator = users.iterator()
+
+        while (iterator.hasNext()) {
+            val user = iterator.next()
+
+            if (user.id == id) {
+                iterator.remove()
+                return user
+            }
+        }
+
+        return null
+    }
+
     companion object {
         val users = mutableListOf(
             User(1, "Kenneth", LocalDate.now()),

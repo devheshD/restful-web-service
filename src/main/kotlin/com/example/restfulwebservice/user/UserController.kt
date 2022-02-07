@@ -29,4 +29,8 @@ class UserController(
 
         return ResponseEntity.created(location).build()
     }
+
+    @DeleteMapping("/users/{id}")
+    fun deleteUsers(@PathVariable id: Int): User? =
+        userDaoService.deleteById(id) ?: throw UserNotFoundException("ID $id not found")
 }

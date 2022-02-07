@@ -1,8 +1,6 @@
 package com.example.restfulwebservice.user
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class UserController(
@@ -12,7 +10,8 @@ class UserController(
     fun retrieveAllUsers(): List<User> = userDaoService.findAll()
 
     @GetMapping("/users/{id}")
-    fun retrieveUser(
-        @PathVariable id: Int
-    ): User? = userDaoService.findOne(id)
+    fun retrieveUser(@PathVariable id: Int): User? = userDaoService.findOne(id)
+
+    @PostMapping("/users")
+    fun createUser(@RequestBody user: User) = userDaoService.save(user)
 }

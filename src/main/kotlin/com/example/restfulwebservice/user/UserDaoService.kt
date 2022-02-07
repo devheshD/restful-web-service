@@ -1,10 +1,13 @@
 package com.example.restfulwebservice.user
 
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 
 @Service
 class UserDaoService {
+    private val log = LoggerFactory.getLogger(javaClass)
+
     fun findAll(): List<User> = users
 
     fun save(user: User): User {

@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import javax.validation.Valid
 
 @RestController
 class UserController(
@@ -19,7 +20,7 @@ class UserController(
         userDaoService.findOne(id) ?: throw UserNotFoundException("ID $id not found")
 
     @PostMapping("/users")
-    fun createUser(@RequestBody user: User): ResponseEntity<User> {
+    fun createUser(@Valid @RequestBody user: User): ResponseEntity<User> {
         val savedUser = userDaoService.save(user)
 
         val location = ServletUriComponentsBuilder.fromCurrentRequest()

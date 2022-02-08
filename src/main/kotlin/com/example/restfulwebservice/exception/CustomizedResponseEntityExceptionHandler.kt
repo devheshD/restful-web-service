@@ -11,39 +11,22 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.time.LocalDateTime
-import kotlin.math.exp
 
 @RestController
 @ControllerAdvice
 class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(Exception::class)
-    fun handleAllExceptions(
-        ex: Exception,
-        request: WebRequest,
-    ): ResponseEntity<Any> {
-        val exceptionResponse = ExceptionResponse(
-            timestamp = LocalDateTime.now(),
-            message = ex.message,
-            details = request.getDescription(false)
-        )
-
-        return ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR)
-    }
+    fun handleAllExceptions(ex: Exception, request: WebRequest): ResponseEntity<Any> = ResponseEntity(
+        ExceptionResponse(LocalDateTime.now(), ex.message, request.getDescription(false)),
+        HttpStatus.INTERNAL_SERVER_ERROR
+    )
 
     @ExceptionHandler(UserNotFoundException::class)
-    fun handleUserNotFoundExceptions(
-        ex: Exception,
-        request: WebRequest,
-    ): ResponseEntity<Any> {
-        val exceptionResponse = ExceptionResponse(
-            timestamp = LocalDateTime.now(),
-            message = ex.message,
-            details = request.getDescription(false)
-        )
-
-        return ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND)
-    }
+    fun handleUserNotFoundExceptions(ex: Exception, request: WebRequest): ResponseEntity<Any> = ResponseEntity(
+        ExceptionResponse(LocalDateTime.now(), ex.message, request.getDescription(false)),
+        HttpStatus.NOT_FOUND
+    )
 
     @Override
     override fun handleMethodArgumentNotValid(
@@ -55,5 +38,4 @@ class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(
         ExceptionResponse(LocalDateTime.now(), "Validation Failed", ex.bindingResult.toString()),
         HttpStatus.BAD_REQUEST
     )
-
 }

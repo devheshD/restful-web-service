@@ -27,7 +27,8 @@ class AdminUserController(
         return mapping
     }
 
-    @GetMapping("/v1/users/{id}")
+//    @GetMapping("/v1/users/{id}")
+    @GetMapping("/users/{id}/", headers = ["X-API-VERSION=1"])
     fun retrieveUserV1(@PathVariable id: Int): MappingJacksonValue {
         val user = userDaoService.findOne(id) ?: throw UserNotFoundException("ID $id not found")
         val filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "joinDate", "ssn")
@@ -37,7 +38,8 @@ class AdminUserController(
         return mapping
     }
 
-    @GetMapping("/v2/users/{id}")
+//    @GetMapping("/v2/users/{id}")
+    @GetMapping("/users/{id}/", headers = ["X-API-VERSION=2"])
     fun retrieveUserV2(@PathVariable id: Int): MappingJacksonValue {
         val user = userDaoService.findOne(id) ?: throw UserNotFoundException("ID $id not found")
         val filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "joinDate", "grade")

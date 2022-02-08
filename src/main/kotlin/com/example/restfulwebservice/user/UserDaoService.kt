@@ -46,9 +46,9 @@ class UserDaoService {
 
     companion object {
         val users = mutableListOf(
-            User(1, "Kenneth", LocalDate.now()),
-            User(2, "Alice", LocalDate.now()),
-            User(3, "Elena", LocalDate.now()),
+            User(1, "Kenneth", LocalDate.now(), "pass1", "707070-1331111"),
+            User(2, "Alice", LocalDate.now(), "pass2", "807880-1113311"),
+            User(3, "Elena", LocalDate.now(), "pass3", "909070-1112211"),
         )
 
         var usersCount = 3
